@@ -2,10 +2,20 @@
   "name": "fusionexport-javascript-client",
   "version": "1.0.0",
   "description": "FusionExport Javascript Client",
-  "main": "index.js",
+  "main": "./src/FusionExport.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.config.js"
   },
   "author": "Jimut Dhali <jimutdhali@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.5",
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
+  }
 }
