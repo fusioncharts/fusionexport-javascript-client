@@ -4,19 +4,9 @@ import DSOptProcessorService from './services/dashboard/OptionProcessorService';
 import CHOptValidationService from './services/chart/OptionValidationService';
 import CHOptProcessorService from './services/chart/OptionProcessorService';
 
-const DEFAULT_HOST = '127.0.0.1';
-const DEFAULT_PORT = 1337;
-
 export default class FusionExport {
   constructor(serverConfig) {
-    const defaultServerConfig = {
-      host: DEFAULT_HOST,
-      port: DEFAULT_PORT,
-    };
-
-    this.serverConfig = Object.assign({}, defaultServerConfig, serverConfig);
-
-    this.exportRequestService = new ExportRequestService(this.serverConfig);
+    this.exportRequestService = new ExportRequestService(serverConfig);
   }
 
   async dashboard(options) {
