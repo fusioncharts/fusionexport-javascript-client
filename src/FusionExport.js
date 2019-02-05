@@ -9,27 +9,65 @@ export default class FusionExport {
     this.exportRequestService = new ExportRequestService(serverConfig);
   }
 
-  async dashboard(options) {
-    const dsOptValidationService = new DSOptValidationService(options);
+  dashboard(options, cb) {
+    try {
+      const dsOptValidationService = new DSOptValidationService(options);
 
-    dsOptValidationService.validate();
+      dsOptValidationService.validate();
 
-    const dsOptProcessorService = new DSOptProcessorService();
+      const dsOptProcessorService = new DSOptProcessorService();
 
-    const exportRqParams = dsOptProcessorService.process();
+      const exportRqParams = dsOptProcessorService.process();
 
-    return this.exportRequestService.send(exportRqParams);
+      const processResponse = (err, exportedFile) => {
+        if (err) {
+          cb(err);
+          return;
+        }
+
+        if (exportRqParams.metadata.base64) {
+          cb(null, exportedFile.data());
+          return;
+        }
+
+        exportedFile.download();
+        cb();
+      };
+
+      this.exportRequestService.send(exportRqParams, processResponse);
+    } catch (err) {
+      cb(err);
+    }
   }
 
-  async chart(options) {
-    const chOptValidationService = new CHOptValidationService(options);
+  chart(options, cb) {
+    try {
+      const chOptValidationService = new CHOptValidationService(options);
 
-    chOptValidationService.validate();
+      chOptValidationService.validate();
 
-    const chOptProcessorService = new CHOptProcessorService();
+      const chOptProcessorService = new CHOptProcessorService();
 
-    const exportRqParams = chOptProcessorService.process();
+      const exportRqParams = chOptProcessorService.process();
 
-    return this.exportRequestService.send(exportRqParams);
+      const processResponse = (err, exportedFile) => {
+        if (err) {
+          cb(err);
+          return;
+        }
+
+        if (exportRqParams.metadata.base64) {
+          cb(null, exportedFile.data());
+          return;
+        }
+
+        exportedFile.download();
+        cb();
+      };
+
+      this.exportRequestService.send(exportRqParams, processResponse);
+    } catch (err) {
+      cb(err);
+    }
   }
 }
