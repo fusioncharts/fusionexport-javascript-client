@@ -9,46 +9,15 @@ export default class FusionExport {
     this.exportRequestService = new ExportRequestService(serverConfig);
   }
 
-  dashboard(options, cb) {
-    try {
-      const dsOptValidationService = new DSOptValidationService(options);
-
-      dsOptValidationService.validate();
-
-      const dsOptProcessorService = new DSOptProcessorService();
-
-      const exportRqParams = dsOptProcessorService.process();
-
-      const processResponse = (err, exportedFile) => {
-        if (err) {
-          cb(err);
-          return;
-        }
-
-        if (exportRqParams.metadata.base64) {
-          cb(null, exportedFile.data());
-          return;
-        }
-
-        exportedFile.download();
-        cb();
-      };
-
-      this.exportRequestService.send(exportRqParams, processResponse);
-    } catch (err) {
-      cb(err);
-    }
-  }
-
   chart(options, cb) {
     try {
       const chOptValidationService = new CHOptValidationService(options);
 
       chOptValidationService.validate();
 
-      const chOptProcessorService = new CHOptProcessorService();
+      const chOptProcessorService = new CHOptProcessorService(options);
 
-      const exportRqParams = chOptProcessorService.process();
+      const processedOptions = chOptProcessorService.process();
 
       const processResponse = (err, exportedFile) => {
         if (err) {
@@ -56,7 +25,7 @@ export default class FusionExport {
           return;
         }
 
-        if (exportRqParams.metadata.base64) {
+        if (processedOptions.metadata.base64) {
           cb(null, exportedFile.data());
           return;
         }
@@ -65,7 +34,38 @@ export default class FusionExport {
         cb();
       };
 
-      this.exportRequestService.send(exportRqParams, processResponse);
+      this.exportRequestService.send(processedOptions, processResponse);
+    } catch (err) {
+      cb(err);
+    }
+  }
+
+  dashboard(options, cb) {
+    try {
+      const dsOptValidationService = new DSOptValidationService(options);
+
+      dsOptValidationService.validate();
+
+      const dsOptProcessorService = new DSOptProcessorService(options);
+
+      const processedOptions = dsOptProcessorService.process();
+
+      const processResponse = (err, exportedFile) => {
+        if (err) {
+          cb(err);
+          return;
+        }
+
+        if (processedOptions.metadata.base64) {
+          cb(null, exportedFile.data());
+          return;
+        }
+
+        exportedFile.download();
+        cb();
+      };
+
+      this.exportRequestService.send(processedOptions, processResponse);
     } catch (err) {
       cb(err);
     }

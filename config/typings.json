@@ -1,0 +1,69 @@
+{
+    "chartConfig": {
+        "supportedTypes": ["object"]
+    },
+    "template": {
+        "supportedTypes": ["string"]
+    },
+    "templateWidth": {
+        "supportedTypes": ["number", "string"]
+    },
+    "templateHeight": {
+        "supportedTypes": ["number", "string"]
+    },
+    "templateFormat": {
+        "supportedTypes": ["string"],
+        "dataset": [
+            "Letter",
+            "Legal",
+            "Tabloid",
+            "Ledger",
+            "A0",
+            "A1",
+            "A2",
+            "A3",
+            "A4",
+            "A5"
+        ]
+    },
+    "templateOnLoad": {
+        "supportedTypes": ["function"]
+    },
+    "resources": {
+        "supportedTypes": ["object"]
+    },
+    "asyncCapture": {
+        "supportedTypes": ["boolean", "string"]
+    },
+    "maxWaitForCaptureExit": {
+        "supportedTypes": ["number", "string"]
+    },
+    "filename": {
+        "supportedTypes": ["string"]
+    },
+    "type": {
+        "supportedTypes": ["string"],
+        "dataset": [
+            "jpeg",
+            "jpg",
+            "png",
+            "pdf",
+            "svg",
+            "html",
+            "csv",
+            "xls",
+            "xlsx"
+        ]
+    },
+    "quality": {
+        "supportedTypes": ["string"],
+        "dataset": [
+            "good",
+            "better",
+            "best"
+        ]
+    },
+    "base64": {
+        "supportedTypes": ["boolean", "string"]
+    }
+}
