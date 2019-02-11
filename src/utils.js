@@ -48,9 +48,26 @@ function blobToText(blob, cb = () => {}) {
   reader.readAsText(blob);
 }
 
+function blobToDataURL(blob, cb = () => {}) {
+  if (!(blob instanceof Blob)) {
+    cb(new TypeError(`${blob} is not an instance of Blob`));
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.addEventListener('loadend', ({ target }) => {
+    const dataURL = target.result;
+    cb(null, dataURL);
+  });
+
+  reader.readAsDataURL(blob);
+}
+
 export default {
   isUndefined,
   parseBool,
   humanizeArray,
   blobToText,
+  blobToDataURL,
 };
