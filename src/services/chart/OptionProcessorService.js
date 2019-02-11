@@ -3,11 +3,14 @@ import optionParser from '../optionParser';
 export default class OptionProcessorService {
   constructor(options) {
     this.options = options;
-    this.processedOptions = {};
+    this.processedOptions = {
+      formdata: {},
+      metadata: {},
+    };
   }
 
   processChartConfig() {
-    this.processesOpts.formdata
+    this.processedOptions.formdata
       .chartConfig = optionParser.parseChartConfig(this.options.chartConfig);
   }
 

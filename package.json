@@ -4,15 +4,18 @@
   "description": "FusionExport Javascript Client",
   "main": "./src/FusionExport.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
+    "build": "WEBPACK_ENV=production webpack --config webpack.config.js --progress",
+    "dev": "webpack --config webpack.config.js --progress --watch",
     "test": "karma start karma.config.js"
   },
   "author": "Jimut Dhali <jimutdhali@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-modules-umd": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "babel-loader": "^8.0.5",
+    "babel-plugin-add-module-exports": "^1.0.0",
     "chai": "^4.2.0",
     "eslint": "^5.12.0",
     "eslint-config-airbnb-base": "^13.1.0",

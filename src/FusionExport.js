@@ -9,7 +9,7 @@ export default class FusionExport {
     this.exportRequestService = new ExportRequestService(serverConfig);
   }
 
-  chart(options, cb) {
+  chart(options, cb = () => {}) {
     try {
       const chOptValidationService = new CHOptValidationService(options);
 
@@ -40,7 +40,7 @@ export default class FusionExport {
     }
   }
 
-  dashboard(options, cb) {
+  dashboard(options, cb = () => {}) {
     try {
       const dsOptValidationService = new DSOptValidationService(options);
 
