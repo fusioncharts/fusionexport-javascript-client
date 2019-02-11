@@ -25,13 +25,13 @@ export default class FusionExport {
           return;
         }
 
-        if (processedOptions.metadata.base64) {
-          cb(null, exportedFile.data());
+        if (processedOptions.metadata.autoDownload) {
+          exportedFile.download();
+          cb();
           return;
         }
 
-        exportedFile.download();
-        cb();
+        cb(null, exportedFile);
       };
 
       this.exportRequestService.send(processedOptions, processResponse);
@@ -56,13 +56,13 @@ export default class FusionExport {
           return;
         }
 
-        if (processedOptions.metadata.base64) {
-          cb(null, exportedFile.data());
+        if (processedOptions.metadata.autoDownload) {
+          exportedFile.download();
+          cb();
           return;
         }
 
-        exportedFile.download();
-        cb();
+        cb(null, exportedFile);
       };
 
       this.exportRequestService.send(processedOptions, processResponse);

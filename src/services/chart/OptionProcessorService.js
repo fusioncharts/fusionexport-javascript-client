@@ -1,8 +1,13 @@
+import utils from '../../utils';
 import optionParser from '../optionParser';
 
 export default class OptionProcessorService {
   constructor(options) {
     this.options = options;
+    this.defaults = {
+      filename: 'export',
+      autoDownload: true,
+    };
     this.processedOptions = {
       formdata: {},
       metadata: {},
@@ -15,27 +20,36 @@ export default class OptionProcessorService {
   }
 
   processQuality() {
-    if (!this.options.quality) return;
+    if (utils.isUndefined(this.options.quality)) return;
     this.processedOptions.formdata
-      .quality = optionParser.parseChartConfig(this.options.quality);
+      .quality = optionParser.parseQuality(this.options.quality);
   }
 
   processType() {
-    if (!this.options.type) return;
+    if (utils.isUndefined(this.options.type)) return;
     this.processedOptions.formdata
-      .type = optionParser.parseChartConfig(this.options.type);
+      .type = optionParser.parseType(this.options.type);
   }
 
   processFilename() {
-    if (!this.options.filename) return;
+    if (utils.isUndefined(this.options.filename)) {
+      this.processedOptions.formdata.outputFile = this.defaults.filename;
+      this.processedOptions.metadata.filename = this.defaults.filename;
+      return;
+    }
+
     this.processedOptions.formdata
-      .outputFile = optionParser.parseChartConfig(this.options.filename);
+      .outputFile = optionParser.parseFilename(this.options.filename);
   }
 
-  processBase64() {
-    if (!this.options.filename) return;
+  processAutoDownload() {
+    if (utils.isUndefined(this.options.autoDownload)) {
+      this.processedOptions.metadata.autoDownload = this.defaults.autoDownload;
+      return;
+    }
+
     this.processedOptions.metadata
-      .base64 = optionParser.parseChartConfig(this.options.base64);
+      .autoDownload = optionParser.parseAutoDownload(this.options.autoDownload);
   }
 
   process() {
@@ -43,7 +57,7 @@ export default class OptionProcessorService {
     this.processQuality();
     this.processType();
     this.processFilename();
-    this.processBase64();
+    this.processAutoDownload();
 
     return this.processedOptions;
   }

@@ -63,7 +63,7 @@
             "best"
         ]
     },
-    "base64": {
+    "autoDownload": {
         "supportedTypes": ["boolean", "string"]
     }
 }

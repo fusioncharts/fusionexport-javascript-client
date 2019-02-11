@@ -66,7 +66,7 @@ function parseQuality(_quality) {
 }
 
 function parseType(_type) {
-  const configName = 'quality';
+  const configName = 'type';
 
   let type = cloneDeep(_type);
 
@@ -78,7 +78,7 @@ function parseType(_type) {
 }
 
 function parseFilename(_filename) {
-  const configName = 'quality';
+  const configName = 'filename';
 
   const filename = cloneDeep(_filename);
 
@@ -87,16 +87,16 @@ function parseFilename(_filename) {
   return filename;
 }
 
-function parseBase64(_base64) {
-  const configName = 'quality';
+function parseAutoDownload(_autoDownload) {
+  const configName = 'autoDownload';
 
-  let base64 = cloneDeep(_base64);
+  let autoDownload = cloneDeep(_autoDownload);
 
-  checkSupport(configName, base64);
+  checkSupport(configName, autoDownload);
 
-  base64 = utils.parseBool(base64);
+  autoDownload = utils.parseBool(autoDownload);
 
-  return base64;
+  return autoDownload;
 }
 
 export default {
@@ -104,5 +104,5 @@ export default {
   parseQuality,
   parseType,
   parseFilename,
-  parseBase64,
+  parseAutoDownload,
 };

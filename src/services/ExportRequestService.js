@@ -64,6 +64,11 @@ export default class ExportRequestService {
       return;
     }
 
+    if (!(target.response instanceof Blob)) {
+      cb(new TypeError(`Response ${target.response} is not of type Blob`));
+      return;
+    }
+
     if (target.status === 200) {
       const exportedFile = new ExportedFile(target.response, options.metadata.filename);
       cb(null, exportedFile);
