@@ -1,23 +1,20 @@
+import utils from '../utils';
 import ExportedFile from '../ExportedFile';
 import defaultServerConfig from '../../config/server.json';
 
 function readError(blob, cb) {
-  if (!(blob instanceof Blob)) {
-    cb(new TypeError(`${blob} is not an instance of Blob`));
-    return;
-  }
-
-  const reader = new FileReader();
-
-  reader.addEventListener('loadend', ({ target }) => {
-    const text = target.result;
+  utils.blobToText(blob, (err, text) => {
+    if (err) {
+      cb(err);
+      return;
+    }
 
     if (blob.type === 'application/json') {
       let json = {};
 
       try {
         json = JSON.parse(text);
-      } catch (err) {
+      } catch (e) {
         cb(null, text);
         return;
       }
@@ -27,8 +24,6 @@ function readError(blob, cb) {
       cb(null, text);
     }
   });
-
-  reader.readAsText(blob);
 }
 
 export default class ExportRequestService {
