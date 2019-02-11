@@ -38,8 +38,9 @@ export default class OptionProcessorService {
       return;
     }
 
-    this.processedOptions.formdata
-      .outputFile = optionParser.parseFilename(this.options.filename);
+    const parsedFilename = optionParser.parseFilename(this.options.filename);
+    this.processedOptions.formdata.outputFile = parsedFilename;
+    this.processedOptions.metadata.filename = parsedFilename;
   }
 
   processAutoDownload() {
