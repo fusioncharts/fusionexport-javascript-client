@@ -64,10 +64,15 @@ function blobToDataURL(blob, cb = () => {}) {
   reader.readAsDataURL(blob);
 }
 
+function getKeyByValue(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+}
+
 export default {
   isUndefined,
   parseBool,
   humanizeArray,
   blobToText,
   blobToDataURL,
+  getKeyByValue,
 };
