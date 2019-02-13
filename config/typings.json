@@ -33,7 +33,7 @@
         "supportedTypes": ["object"]
     },
     "asyncCapture": {
-        "supportedTypes": ["boolean", "string"]
+        "supportedTypes": ["boolean", "number", "string"]
     },
     "maxWaitForCaptureExit": {
         "supportedTypes": ["number", "string"]
@@ -64,6 +64,6 @@
         ]
     },
     "autoDownload": {
-        "supportedTypes": ["boolean", "string"]
+        "supportedTypes": ["boolean", "number", "string"]
     }
 }
