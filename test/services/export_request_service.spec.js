@@ -38,4 +38,30 @@ describe('ExportRequestService', () => {
     expect(exportRequestService.serverConfig.host).to.equal(host);
     expect(exportRequestService.serverConfig.port).to.equal(port);
   });
+
+  it('should define correct server url', () => {
+    const host = '0.0.0.0';
+    const port = 1111;
+    const exportRequestService = new ExportRequestService({ host, port });
+    expect(exportRequestService.serverURL).to.equal(`http://${host}:${port}`);
+  });
+
+  it('should define correct export endpoint', () => {
+    const host = '0.0.0.0';
+    const port = 1111;
+    const exportRequestService = new ExportRequestService({ host, port });
+    expect(exportRequestService.exportEndpoint).to.equal(`http://${host}:${port}/api/v2.0/export`);
+  });
+
+  it('should return error when connected to incorrect url', (done) => {
+    const host = '0.0.0.0';
+    const port = 1111;
+    const exportRequestService = new ExportRequestService({ host, port });
+    const options = { formdata: {}, metadata: {} };
+    exportRequestService.send(options, (err) => {
+      expect(err.message).to.have.string('Cannot connect to FusionExport server.');
+      expect(err.name).to.equal('Connection Refused');
+      done();
+    });
+  });
 });
