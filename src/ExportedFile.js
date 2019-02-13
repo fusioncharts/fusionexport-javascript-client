@@ -21,11 +21,11 @@ export default class ExportedFile {
     this.filename = filename;
   }
 
-  blob() {
+  getBlob() {
     return this.blob;
   }
 
-  dataURL(cb = () => {}) {
+  getDataURL(cb = () => {}) {
     return utils.blobToDataURL(this.blob, cb);
   }
 
