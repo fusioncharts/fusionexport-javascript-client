@@ -2,10 +2,36 @@
   "name": "fusionexport-javascript-client",
   "version": "1.0.0",
   "description": "FusionExport Javascript Client",
-  "main": "index.js",
+  "main": "./src/FusionExport.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "WEBPACK_ENV=production webpack --config webpack.config.js --progress",
+    "dev": "webpack --config webpack.config.js --progress --watch",
+    "test": "karma start karma.config.js"
   },
   "author": "Jimut Dhali <jimutdhali@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-modules-umd": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "chai": "^4.2.0",
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "karma": "^3.1.4",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-mocha": "^1.3.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^3.0.5",
+    "mocha": "^5.2.0",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
+  },
+  "dependencies": {
+    "downloadjs": "^1.4.7",
+    "lodash.clonedeep": "^4.5.0"
+  }
 }
