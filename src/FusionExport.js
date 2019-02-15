@@ -3,6 +3,7 @@ import DSOptValidationService from './services/dashboard/OptionValidationService
 import DSOptProcessorService from './services/dashboard/OptionProcessorService';
 import CHOptValidationService from './services/chart/OptionValidationService';
 import CHOptProcessorService from './services/chart/OptionProcessorService';
+import TemplateBuilderService from './services/dashboard/TemplateBuilderService';
 
 export default class FusionExport {
   constructor(serverConfig) {
@@ -48,7 +49,11 @@ export default class FusionExport {
 
       const dsOptProcessorService = new DSOptProcessorService(options);
 
-      const processedOptions = dsOptProcessorService.process();
+      let processedOptions = dsOptProcessorService.process();
+
+      const templateBuilderService = new TemplateBuilderService(processedOptions);
+
+      processedOptions = templateBuilderService.build();
 
       const processResponse = (err, exportedFile) => {
         if (err) {

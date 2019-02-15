@@ -23,7 +23,7 @@ export default class OptionProcessorService {
   processTemplate() {
     if (utils.isUndefined(this.options.template)) return;
     this.processedOptions.formdata
-      .templateFilePath = optionParser.parseTemplate(this.options.template);
+      .template = optionParser.parseTemplate(this.options.template);
   }
 
   processTemplateWidth() {

@@ -102,7 +102,7 @@ function parseTemplateFormat(_templateFormat) {
 function parseTemplateOnLoad(_templateOnLoad) {
   const configName = 'templateOnLoad';
 
-  const templateOnLoad = cloneDeep(_templateOnLoad);
+  const templateOnLoad = _templateOnLoad;
 
   checkSupport(configName, templateOnLoad);
 
