@@ -48,6 +48,27 @@ describe('utils', () => {
     });
   });
 
+  describe('parseNumber', () => {
+    it('should parse number value correctly', () => {
+      expect(utils.parseNumber(12)).to.equal(12);
+    });
+
+    it('should parse string value correctly', () => {
+      expect(utils.parseNumber('123')).to.equal(123);
+      expect(utils.parseNumber('-123')).to.equal(-123);
+    });
+
+    it('should throw an error on passing incorrect string value', () => {
+      const fn = () => utils.parseNumber('not_parsable');
+      expect(fn).to.throw("Couldn't convert to number");
+    });
+
+    it('should throw an error on passing incorrect type', () => {
+      const fn = () => utils.parseNumber({});
+      expect(fn).to.throw("Couldn't convert to number");
+    });
+  });
+
   describe('humanizeArray', () => {
     it('should return empty string on passing incorrect type', () => {
       expect(utils.humanizeArray({})).to.equal('');
