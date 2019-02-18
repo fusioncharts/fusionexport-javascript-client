@@ -28,7 +28,7 @@ function parseNumber(val) {
       return numberVal;
     }
     throw Error("Couldn't convert to number");
-  } else if (typeof value === 'number') {
+  } else if (typeof val === 'number') {
     const numberVal = val;
     return numberVal;
   }
