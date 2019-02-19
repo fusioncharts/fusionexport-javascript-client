@@ -1,6 +1,6 @@
 export default class TemplateBuilderService {
   constructor(processedOptions) {
-    this.processedOptions = processedOptions;
+    this.processedOptions = { ...{ formdata: {}, metadata: {} }, ...processedOptions };
     this.defaults = {
       template: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title></title><style>html,body{margin:0;padding:0;}.chart-wrapper{display:flex;flex-flow:row wrap;}</style></head><body></body></html>',
     };
@@ -101,7 +101,7 @@ export default class TemplateBuilderService {
   }
 
   serializeDOM() {
-    this.processedOptions.formdata.template = this.dom.documentElement.innerHTML;
+    this.processedOptions.formdata.template = this.dom.documentElement.outerHTML;
   }
 
   build() {
