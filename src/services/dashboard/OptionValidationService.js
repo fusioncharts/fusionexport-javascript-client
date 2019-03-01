@@ -1,6 +1,21 @@
 export default class OptionValidationService {
   constructor(options) {
     this.options = options;
+    this.supportedOptions = [
+      'chartConfig',
+      'template',
+      'templateWidth',
+      'templateHeight',
+      'templateFormat',
+      'templateOnLoad',
+      'resources',
+      'asyncCapture',
+      'maxWaitForCaptureExit',
+      'quality',
+      'type',
+      'filename',
+      'autoDownload',
+    ];
   }
 
   checkMinimumRequirements() {
@@ -9,7 +24,16 @@ export default class OptionValidationService {
     }
   }
 
+  checkInvalidOptions() {
+    Object.keys(this.options).forEach((key) => {
+      if (!this.supportedOptions.includes(key)) {
+        console.warn(`${key} is not a valid configuration for dashboard export. It will be ignored.`);
+      }
+    });
+  }
+
   validate() {
     this.checkMinimumRequirements();
+    this.checkInvalidOptions();
   }
 }
