@@ -1,5 +1,12 @@
+import sinon from 'sinon';
 import { expect } from 'chai';
-import ExportedFile from '../src/ExportedFile';
+// eslint-disable-next-line
+import ExportedFileInjector from 'inject-loader!../src/ExportedFile';
+
+const downloadSpy = sinon.spy();
+const ExportedFile = ExportedFileInjector({
+  downloadjs: downloadSpy,
+});
 
 describe('ExportedFile', () => {
   it('should return correct blob', () => {
@@ -15,5 +22,12 @@ describe('ExportedFile', () => {
       expect(dataURL).to.equal('data:text/plain;base64,YWJjZGVm');
       done();
     });
+  });
+
+  it('should append correct extension when incorrect extension is provided', () => {
+    const blob = new Blob(['abcdef'], { type: 'text/csv' });
+    const ef = new ExportedFile(blob, 'output.zip');
+    ef.download();
+    expect(downloadSpy.calledWith(blob, 'output.zip.csv')).to.equal(true);
   });
 });
