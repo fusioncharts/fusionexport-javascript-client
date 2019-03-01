@@ -32,8 +32,17 @@ export default class OptionValidationService {
     });
   }
 
+  checkIncompatibleOptions() {
+    if (this.options.templateFormat) {
+      if (!this.options.type || this.options.type.toLowerCase() !== 'pdf') {
+        console.warn('templateFormat is not supported for types other than PDF. It will be ignored.');
+      }
+    }
+  }
+
   validate() {
     this.checkMinimumRequirements();
     this.checkInvalidOptions();
+    this.checkIncompatibleOptions();
   }
 }
