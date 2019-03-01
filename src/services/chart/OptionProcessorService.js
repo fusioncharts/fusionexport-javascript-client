@@ -32,15 +32,21 @@ export default class OptionProcessorService {
   }
 
   processFilename() {
+    const chartConfigCount = JSON.parse(this.processedOptions.formdata.chartConfig).length;
+
     if (utils.isUndefined(this.options.filename)) {
-      this.processedOptions.formdata.outputFile = this.defaults.filename;
+      if (chartConfigCount === 1) {
+        this.processedOptions.formdata.outputFile = this.defaults.filename;
+      }
       this.processedOptions.metadata.filename = this.defaults.filename;
       return;
     }
 
     const parsedFilename = optionParser.parseFilename(this.options.filename);
     this.processedOptions.formdata.outputFile = parsedFilename;
-    this.processedOptions.metadata.filename = parsedFilename;
+    if (chartConfigCount > 1) {
+      this.processedOptions.metadata.filename = this.defaults.filename;
+    }
   }
 
   processAutoDownload() {

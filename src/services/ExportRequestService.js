@@ -26,6 +26,22 @@ function readError(blob, cb) {
   });
 }
 
+function readAttachmentFilename(request) {
+  let headerVal = '';
+
+  try {
+    headerVal = request.getResponseHeader('content-disposition');
+  } catch (err) {
+    return undefined;
+  }
+
+  const searchVal = 'filename="';
+  if (headerVal.indexOf(searchVal) < 0) return undefined;
+
+  const startIdx = headerVal.indexOf(searchVal) + searchVal.length;
+  return headerVal.slice(startIdx, -1);
+}
+
 export default class ExportRequestService {
   constructor(serverConfig) {
     this.serverConfig = Object.assign({}, defaultServerConfig, serverConfig);
@@ -65,7 +81,9 @@ export default class ExportRequestService {
     }
 
     if (target.status === 200) {
-      const exportedFile = new ExportedFile(target.response, options.metadata.filename);
+      const attachmentFilename = readAttachmentFilename(target);
+      const filename = options.metadata.filename || attachmentFilename;
+      const exportedFile = new ExportedFile(target.response, filename);
       cb(null, exportedFile);
       return;
     }
