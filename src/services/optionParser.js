@@ -53,6 +53,96 @@ function parseChartConfig(_chartConfig) {
   return chartConfig;
 }
 
+function parseTemplate(_template) {
+  const configName = 'template';
+
+  const template = cloneDeep(_template);
+
+  checkSupport(configName, template);
+
+  return template;
+}
+
+function parseTemplateWidth(_templateWidth) {
+  const configName = 'templateWidth';
+
+  let templateWidth = cloneDeep(_templateWidth);
+
+  checkSupport(configName, templateWidth);
+
+  templateWidth = utils.parseNumber(templateWidth);
+
+  return templateWidth;
+}
+
+function parseTemplateHeight(_templateHeight) {
+  const configName = 'templateHeight';
+
+  let templateHeight = cloneDeep(_templateHeight);
+
+  checkSupport(configName, templateHeight);
+
+  templateHeight = utils.parseNumber(templateHeight);
+
+  return templateHeight;
+}
+
+function parseTemplateFormat(_templateFormat) {
+  const configName = 'templateFormat';
+
+  let templateFormat = cloneDeep(_templateFormat);
+
+  checkSupport(configName, templateFormat);
+
+  templateFormat = templateFormat.toLowerCase();
+
+  return templateFormat;
+}
+
+function parseTemplateOnLoad(_templateOnLoad) {
+  const configName = 'templateOnLoad';
+
+  const templateOnLoad = _templateOnLoad;
+
+  checkSupport(configName, templateOnLoad);
+
+  return templateOnLoad;
+}
+
+function parseResources(_resources) {
+  const configName = 'resources';
+
+  const resources = cloneDeep(_resources);
+
+  checkSupport(configName, resources);
+
+  return resources;
+}
+
+function parseAsyncCapture(_asyncCapture) {
+  const configName = 'asyncCapture';
+
+  let asyncCapture = cloneDeep(_asyncCapture);
+
+  checkSupport(configName, asyncCapture);
+
+  asyncCapture = utils.parseBool(asyncCapture);
+
+  return asyncCapture;
+}
+
+function parseMaxWaitForCaptureExit(_maxWaitForCaptureExit) {
+  const configName = 'maxWaitForCaptureExit';
+
+  let maxWaitForCaptureExit = cloneDeep(_maxWaitForCaptureExit);
+
+  checkSupport(configName, maxWaitForCaptureExit);
+
+  maxWaitForCaptureExit = utils.parseNumber(maxWaitForCaptureExit);
+
+  return maxWaitForCaptureExit;
+}
+
 function parseQuality(_quality) {
   const configName = 'quality';
 
@@ -101,6 +191,14 @@ function parseAutoDownload(_autoDownload) {
 
 export default {
   parseChartConfig,
+  parseTemplate,
+  parseTemplateWidth,
+  parseTemplateHeight,
+  parseTemplateFormat,
+  parseTemplateOnLoad,
+  parseResources,
+  parseAsyncCapture,
+  parseMaxWaitForCaptureExit,
   parseQuality,
   parseType,
   parseFilename,

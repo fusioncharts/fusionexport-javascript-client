@@ -20,6 +20,21 @@ function parseBool(val) {
   throw Error("Couldn't convert to boolean");
 }
 
+function parseNumber(val) {
+  if (typeof val === 'string') {
+    const stringVal = val;
+    const numberVal = Number(stringVal);
+    if (!Number.isNaN(numberVal)) {
+      return numberVal;
+    }
+    throw Error("Couldn't convert to number");
+  } else if (typeof val === 'number') {
+    const numberVal = val;
+    return numberVal;
+  }
+  throw Error("Couldn't convert to number");
+}
+
 function humanizeArray(arr) {
   if (!Array.isArray(arr)) return '';
 
@@ -71,6 +86,7 @@ function getKeyByValue(object, value) {
 export default {
   isUndefined,
   parseBool,
+  parseNumber,
   humanizeArray,
   blobToText,
   blobToDataURL,
