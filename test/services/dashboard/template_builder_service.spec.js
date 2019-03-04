@@ -3,6 +3,10 @@ import { expect } from 'chai';
 import TemplateBuilderService from '../../../src/services/dashboard/TemplateBuilderService';
 
 describe('TemplateBuilderService', () => {
+  beforeEach(() => {
+    sinon.stub(console, 'warn');
+  });
+
   it('should parse template correctly', () => {
     const opts = {
       formdata: {
@@ -110,7 +114,6 @@ describe('TemplateBuilderService', () => {
   });
 
   it('should warn before ignoring link tags with no href attribute', () => {
-    sinon.stub(console, 'warn');
     const opts = {
       formdata: {
         template: '<h1>Hi!</h1>',
@@ -128,7 +131,6 @@ describe('TemplateBuilderService', () => {
     const linkTags = tbs.dom.head.querySelectorAll('link');
     expect(linkTags.length).to.equal(0);
     expect(console.warn.calledWithMatch('Ignoring link')).to.equal(true);
-    console.warn.restore();
   });
 
   it('should insert script tags as defined', () => {
@@ -152,8 +154,7 @@ describe('TemplateBuilderService', () => {
     expect(insertedScriptTag.getAttribute('type')).to.equal('text/javascript');
   });
 
-  it('should warn before ignoring link tags with no href attribute', () => {
-    sinon.stub(console, 'warn');
+  it('should warn before ignoring script tags with no src attribute', () => {
     const opts = {
       formdata: {
         template: '<h1>Hi!</h1>',
@@ -171,7 +172,6 @@ describe('TemplateBuilderService', () => {
     const scriptTags = tbs.dom.body.querySelectorAll('script');
     expect(scriptTags.length).to.equal(0);
     expect(console.warn.calledWithMatch('Ignoring script')).to.equal(true);
-    console.warn.restore();
   });
 
   it('should insert templateOnLoad function in script tag', () => {
@@ -187,5 +187,9 @@ describe('TemplateBuilderService', () => {
     tbs.build();
     const [scriptTag] = tbs.dom.body.querySelectorAll('script');
     expect(scriptTag.innerText).to.equal(`window.onload = ${opts.metadata.templateOnLoad.toString()}`);
+  });
+
+  afterEach(() => {
+    console.warn.restore();
   });
 });
