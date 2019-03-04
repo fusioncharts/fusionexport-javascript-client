@@ -82,6 +82,7 @@ export default class ExportRequestService {
 
     if (target.status === 200) {
       const attachmentFilename = readAttachmentFilename(target);
+      // TODO: Return correct filename from server and use that only
       const filename = options.metadata.filename || attachmentFilename;
       const exportedFile = new ExportedFile(target.response, filename);
       cb(null, exportedFile);

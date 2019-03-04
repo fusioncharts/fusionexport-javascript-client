@@ -31,6 +31,7 @@ export default class OptionProcessorService {
       .type = optionParser.parseType(this.options.type);
   }
 
+  // TODO: Return correct filename from server and write a simpler logic here
   processFilename() {
     const chartConfigCount = JSON.parse(this.processedOptions.formdata.chartConfig).length;
 
