@@ -1,6 +1,13 @@
 export default class OptionValidatorService {
   constructor(options) {
     this.options = options;
+    this.supportedOptions = [
+      'chartConfig',
+      'quality',
+      'type',
+      'filename',
+      'autoDownload',
+    ];
   }
 
   checkMinimumRequirements() {
@@ -9,7 +16,16 @@ export default class OptionValidatorService {
     }
   }
 
+  checkInvalidOptions() {
+    Object.keys(this.options).forEach((key) => {
+      if (!this.supportedOptions.includes(key)) {
+        console.warn(`${key} is not a valid configuration for chart export. It will be ignored.`);
+      }
+    });
+  }
+
   validate() {
     this.checkMinimumRequirements();
+    this.checkInvalidOptions();
   }
 }
