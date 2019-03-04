@@ -27,13 +27,8 @@ function readError(blob, cb) {
 }
 
 function readAttachmentFilename(request) {
-  let headerVal = '';
-
-  try {
-    headerVal = request.getResponseHeader('content-disposition');
-  } catch (err) {
-    return undefined;
-  }
+  const headerVal = request.getResponseHeader('content-disposition');
+  if (!headerVal) return undefined;
 
   const searchVal = 'filename="';
   if (headerVal.indexOf(searchVal) < 0) return undefined;
