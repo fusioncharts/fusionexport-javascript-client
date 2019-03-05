@@ -10,7 +10,25 @@ module.exports = {
           path.resolve(__dirname, 'src'),
           path.resolve(__dirname, 'test'),
         ],
-        loader: 'babel-loader',
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              babelrc: false,
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    targets: 'cover 90%',
+                  },
+                ],
+              ],
+              plugins: [
+                'rewire',
+              ],
+            },
+          },
+        ],
       },
     ],
   },

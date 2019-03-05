@@ -1,7 +1,7 @@
 const path = require('path');
 
 const mode = process.env.WEBPACK_ENV || 'development';
-const devtool = mode === 'production' ? null : 'source-map';
+const devtool = mode === 'production' ? undefined : 'source-map';
 
 module.exports = {
   mode,
@@ -18,7 +18,26 @@ module.exports = {
       {
         test: /\.js$/,
         include: path.resolve(__dirname, 'src'),
-        loader: 'babel-loader',
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              babelrc: false,
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    targets: 'cover 90%',
+                  },
+                ],
+              ],
+              plugins: [
+                '@babel/plugin-transform-modules-umd',
+                'add-module-exports',
+              ],
+            },
+          },
+        ],
       },
     ],
   },
