@@ -1,12 +1,6 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
-// eslint-disable-next-line
-import ExportedFileInjector from 'inject-loader!../src/ExportedFile';
-
-const downloadSpy = sinon.spy();
-const ExportedFile = ExportedFileInjector({
-  downloadjs: downloadSpy,
-});
+import ExportedFile from '../src/ExportedFile';
 
 describe('ExportedFile', () => {
   it('should return correct blob', () => {
@@ -25,6 +19,8 @@ describe('ExportedFile', () => {
   });
 
   it('should append correct extension when incorrect extension is provided', () => {
+    const downloadSpy = sinon.spy();
+    ExportedFile.__Rewire__('download', downloadSpy);
     const blob = new Blob(['abcdef'], { type: 'text/csv' });
     const ef = new ExportedFile(blob, 'output.zip');
     ef.download();
