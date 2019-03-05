@@ -1,14 +1,12 @@
 const path = require('path');
+const merge = require('webpack-merge');
 
 const mode = process.env.WEBPACK_ENV || 'development';
-const devtool = mode === 'production' ? undefined : 'source-map';
 
-module.exports = {
-  mode,
+const common = {
   entry: './src/FusionExport.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
     library: 'FusionExport',
     libraryTarget: 'umd',
     umdNamedDefine: true,
@@ -41,5 +39,25 @@ module.exports = {
       },
     ],
   },
-  devtool,
 };
+
+const minified = {
+  mode: 'production',
+  output: {
+    filename: 'index.min.js',
+  },
+};
+
+const sourcemaped = {
+  mode: 'development',
+  output: {
+    filename: 'index.js',
+  },
+  devtool: 'eval-source-map',
+};
+
+const config = mode === 'production'
+  ? [merge(minified, common), merge(sourcemaped, common)]
+  : merge(sourcemaped, common);
+
+module.exports = config;
