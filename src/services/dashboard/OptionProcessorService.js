@@ -5,7 +5,6 @@ export default class OptionProcessorService {
   constructor(options) {
     this.options = options;
     this.defaults = {
-      filename: 'export',
       autoDownload: true,
     };
     this.processedOptions = {
@@ -83,15 +82,9 @@ export default class OptionProcessorService {
   }
 
   processFilename() {
-    if (utils.isUndefined(this.options.filename)) {
-      this.processedOptions.formdata.outputFile = this.defaults.filename;
-      this.processedOptions.metadata.filename = this.defaults.filename;
-      return;
-    }
-
-    const parsedFilename = optionParser.parseFilename(this.options.filename);
-    this.processedOptions.formdata.outputFile = parsedFilename;
-    this.processedOptions.metadata.filename = parsedFilename;
+    if (utils.isUndefined(this.options.filename)) return;
+    this.processedOptions.formdata
+      .outputFile = optionParser.parseFilename(this.options.filename);
   }
 
   processAutoDownload() {

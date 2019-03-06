@@ -16,7 +16,7 @@ const ext2mimeMap = {
 };
 
 export default class ExportedFile {
-  constructor(blob, filename) {
+  constructor(blob, filename = 'export') {
     this.blob = blob;
     this.filename = filename;
   }

@@ -5,7 +5,6 @@ export default class OptionProcessorService {
   constructor(options) {
     this.options = options;
     this.defaults = {
-      filename: 'export',
       autoDownload: true,
     };
     this.processedOptions = {
@@ -31,23 +30,10 @@ export default class OptionProcessorService {
       .type = optionParser.parseType(this.options.type);
   }
 
-  // TODO: Return correct filename from server and write a simpler logic here
   processFilename() {
-    const chartConfigCount = JSON.parse(this.processedOptions.formdata.chartConfig).length;
-
-    if (utils.isUndefined(this.options.filename)) {
-      if (chartConfigCount === 1) {
-        this.processedOptions.formdata.outputFile = this.defaults.filename;
-      }
-      this.processedOptions.metadata.filename = this.defaults.filename;
-      return;
-    }
-
-    const parsedFilename = optionParser.parseFilename(this.options.filename);
-    this.processedOptions.formdata.outputFile = parsedFilename;
-    if (chartConfigCount > 1) {
-      this.processedOptions.metadata.filename = this.defaults.filename;
-    }
+    if (utils.isUndefined(this.options.filename)) return;
+    this.processedOptions.formdata
+      .outputFile = optionParser.parseFilename(this.options.filename);
   }
 
   processAutoDownload() {
