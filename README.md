@@ -53,13 +53,13 @@ const chartConfig = {
 
 // Instantiate FusionExport exporter
 const exporter = new FusionExport({
-    host: 'api.fusionexport.com',
-    port: 1337,
+  host: 'api.fusionexport.com',
+  port: 1337,
 });
 
 // Call the function to automatically download the exported file
 exporter.exportChart({
-    chartConfig,
+  chartConfig,
 });
 ```
 
