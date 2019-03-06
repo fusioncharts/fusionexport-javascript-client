@@ -3,7 +3,7 @@
 Javascript SDK for FusionExport. Enables exporting from browser using FusionExport.
 
 ## Installation
-To install the module, simply use npm:
+To install this module, simply use npm:
 
 ```bash
 $ npm install --save fusionexport-javascript-client
@@ -11,10 +11,10 @@ $ npm install --save fusionexport-javascript-client
 
 ## Usage
 
-To require the SDK into your project:
+To import the SDK into your project:
 
 ```js
-const FusionExport = require('fusionexport-javascript-client');
+import FusionExport from 'fusionexport-javascript-client';
 ```
 
 ## Getting Started
@@ -22,8 +22,8 @@ const FusionExport = require('fusionexport-javascript-client');
 Start with a simple chart export. For exporting a single chart just pass the chart configuration as you would have passed it to the FusionCharts constructor.
 
 ```js
-// Require FusionExport
-const FusionExport = require('fusionexport-javascript-client');
+// Import FusionExport
+import FusionExport from 'fusionexport-javascript-client';
 
 const chartConfig = {
   type: 'column2d',
