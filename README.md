@@ -6,7 +6,7 @@ Javascript SDK for FusionExport. Enables exporting from browser using FusionExpo
 To install this module, simply use npm:
 
 ```bash
-$ npm install --save fusionexport-javascript-client
+npm install --save fusionexport-javascript-client
 ```
 
 ## Usage
