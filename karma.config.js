@@ -4,6 +4,8 @@
 
 const webpackTestConfig = require('./webpack.config.test.js');
 
+const singleRun = !!process.env.SINGLE_RUN;
+
 module.exports = function karmaConfig(config) {
   config.set({
 
@@ -66,7 +68,7 @@ module.exports = function karmaConfig(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun,
 
     // Concurrency level
     // how many browser should be started simultaneous
