@@ -106,16 +106,6 @@ describe('ExportRequestService', () => {
     req.respond(200, { 'Content-Type': 'text/html' }, 'OK');
   });
 
-  it('should set exported file with provided filename', (done) => {
-    const ers = new ExportRequestService();
-    const opts = { formdata: {}, metadata: { filename: 'output' } };
-    ers.send(opts, (err, ef) => {
-      expect(ef.filename).to.equal('output');
-      done();
-    });
-    req.respond(200, {}, 'OK');
-  });
-
   it('should set exported file with attachment filename', (done) => {
     const ers = new ExportRequestService();
     const opts = { formdata: {}, metadata: {} };

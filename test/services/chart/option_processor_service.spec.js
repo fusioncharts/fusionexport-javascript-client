@@ -41,34 +41,6 @@ describe('OptionProcessorService', () => {
     const ops = new OptionProcessorService(opts);
     const processedOpts = ops.process();
     expect(processedOpts.formdata.outputFile).to.equal(opts.filename);
-    expect(processedOpts.metadata.filename).to.equal(undefined);
-
-    const opts2 = {
-      chartConfig: [{}, {}],
-      filename: 'output',
-    };
-    const ops2 = new OptionProcessorService(opts2);
-    const processedOpts2 = ops2.process();
-    expect(processedOpts2.formdata.outputFile).to.equal(opts2.filename);
-    expect(processedOpts2.metadata.filename).to.equal(ops2.defaults.filename);
-  });
-
-  it('should use default filename when no filename is passed', () => {
-    const opts = {
-      chartConfig: {},
-    };
-    const ops = new OptionProcessorService(opts);
-    const processedOpts = ops.process();
-    expect(processedOpts.formdata.outputFile).to.equal(ops.defaults.filename);
-    expect(processedOpts.metadata.filename).to.equal(ops.defaults.filename);
-
-    const opts2 = {
-      chartConfig: [{}, {}],
-    };
-    const ops2 = new OptionProcessorService(opts2);
-    const processedOpts2 = ops2.process();
-    expect(processedOpts2.formdata.outputFile).to.equal(undefined);
-    expect(processedOpts2.metadata.filename).to.equal(ops2.defaults.filename);
   });
 
   it('should process autoDownload correctly', () => {

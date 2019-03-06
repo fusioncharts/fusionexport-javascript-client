@@ -120,17 +120,6 @@ describe('OptionProcessorService', () => {
     const ops = new OptionProcessorService(opts);
     const processedOpts = ops.process();
     expect(processedOpts.formdata.outputFile).to.equal(opts.filename);
-    expect(processedOpts.metadata.filename).to.equal(opts.filename);
-  });
-
-  it('should use default filename when no filename is passed', () => {
-    const opts = {
-      chartConfig: {},
-    };
-    const ops = new OptionProcessorService(opts);
-    const processedOpts = ops.process();
-    expect(processedOpts.formdata.outputFile).to.equal(ops.defaults.filename);
-    expect(processedOpts.metadata.filename).to.equal(ops.defaults.filename);
   });
 
   it('should process autoDownload correctly', () => {
